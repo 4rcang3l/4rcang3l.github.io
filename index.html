@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Design Engineer Portfolio</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120,219,255,0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0,0,0,0.8);
+            padding: 0.5rem 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, #ff00ff);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            scroll-margin-top: 80px;
+        }
+
+        /* Liquid Glass elements */
+        .glass {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                inset 0 4px 20px rgba(255,255,255,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+        }
+
+        .glass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            border-radius: 24px;
+            backdrop-filter: blur(1px);
+            box-shadow: inset -20px -20px 0px -25px rgba(255,255,255,0.4),
+                        inset 0px -20px 0px -15px rgba(255,255,255,0.3);
+            opacity: 0.7;
+            z-index: -1;
+            filter: blur(2px) brightness(120%);
+            transition: transform 0.6s ease;
+        }
+
+        .glass:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 35px 70px rgba(0,0,0,0.6),
+                inset 0 4px 20px rgba(255,255,255,0.15);
+        }
+
+        .glass:hover::after {
+            transform: translateX(20px) translateY(-10px);
+        }
+
+        /* Hero */
+        #hero .glass {
+            text-align: center;
+        }
+
+      #hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(135deg, #00f5ff, #ff00ff, #00ff88);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(0,245,255,0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(255,0,255,0.5)); }
+        }
+
+        /* Grid for projects/skills */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,245,255,0.5);
+        }
+
+        /* Contact form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #00f5ff;
+            box-shadow: 0 0 20px rgba(0,245,255,0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #00f5ff, #ff00ff);
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            section {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll indicators */
+        nav a.active {
+            color: #00f5ff;
+        }
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div class="glass">
+            <h1>Electrical & Instrumentation Design Engineer</h1>
+            <p>Expert in industrial automation, data centers, substations, and AI-driven engineering solutions. Crafting precision systems with creative elegance.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="glass">
+            <h2>About Me</h2>
+            <p>Technical Project Lead at Barak & Brazos Engineering, based in Bengaluru. Specializing in electrical design, instrumentation & controls, and training program development. Passionate about music production and motorcycle engineering.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Experience</h3>
+                    <ul>
+                        <li>Electrical Design for HV-MV Substations</li>
+                        <li>Industrial Automation Systems</li>
+                        <li>AutoCAD Electrical Expert</li>
+                        <li>Team Leadership & Training</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Creative Side</h3>
+                    <ul>
+                        <li>Ambient Electronic Music Production</li>
+                        <li>Honda CBR 250R Modifications</li>
+                        <li>AI Innovation Projects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="glass">
+            <h2>Core Skills</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Design Tools</h3>
+                    <p>AutoCAD Electrical, Siemens LOGO PLC, Rtelligent Drivers</p>
+                </div>
+                <div class="card">
+                    <h3>Domains</h3>
+                    <p>Data Centers, Substations, Instrumentation & Controls</p>
+                </div>
+                <div class="card">
+                    <h3>Innovation</h3>
+                    <p>AI for Engineering Automation, Custom Tool Development</p>
+                </div>
+                <div class="card">
+                    <h3>Soft Skills</h3>
+                    <p>Project Management, Technical Training, Team Leadership</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="glass">
+            <h2>Featured Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Data Center Electrical Design</h3>
+                    <p>Complete HV/MV distribution system for enterprise data centers using AutoCAD Electrical.</p>
+                </div>
+                <div class="card">
+                    <h3>Substation Automation</h3>
+                    <p>SCADA-integrated control systems for 132kV substations with Siemens PLCs.</p>
+                </div>
+                <div class="card">
+                    <h3>AI Design Assistant</h3>
+                    <p>Machine learning tool for automated schematic generation and validation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="glass">
+            <h2>Get In Touch</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <p style="margin-top: 1rem; opacity: 0.8;">📧 email@example.com | 🔗 LinkedIn | 💼 Bengaluru, India</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling and active nav
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            // Active nav link
+            const sections = document.querySelectorAll('section');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${current}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission (demo)
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent. (Demo)');
+        });
+    </script>
+</body>
+</html>
+
+
+
